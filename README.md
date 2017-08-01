@@ -91,7 +91,7 @@ Code copyright 2017 Materialize. Code released under the MIT license.
 =======
 # website
 # server
-
+Install docker
 
 From the official documentation :
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
@@ -130,7 +130,7 @@ Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF 
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
-   stable
+   stable"
 ```
 Install docker :
 ```bash
