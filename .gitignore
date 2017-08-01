@@ -1,0 +1,6 @@
+# Intellij folders
+/.idea
+
+# npm / yarn packages
+/node_modules
+yarn.lock

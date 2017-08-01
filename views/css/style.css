@@ -1,0 +1,27 @@
+img.middle {
+    width: 300px;
+    height: auto;
+}
+
+p.biggest {
+    font-size: 400%;
+}
+
+p.big {
+    font-size: 300%;
+}
+
+p.card_margin {
+    margin:5px 5px 5px 30px;
+}
+
+/* sticky bottom footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
