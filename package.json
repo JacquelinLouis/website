@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "ejs": "^2.5.6",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "i18n": "^0.8.3"
   }
 }

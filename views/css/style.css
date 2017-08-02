@@ -11,7 +11,7 @@ p.big {
     font-size: 300%;
 }
 
-p.card_margin {
+.card_margin {
     margin:5px 5px 5px 30px;
 }
 
