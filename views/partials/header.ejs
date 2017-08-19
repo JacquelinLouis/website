@@ -2,27 +2,30 @@
 <header>
 
     <ul id="dropdown1" class="dropdown-content">
-        <!-- TODO : fix dynamic list-->
-        <% i18n.getLocales().forEach(function (element) { %>
-            <li><%=element%></li>
-        <%}) %>
+        <%i18n.getLocales().forEach(function (element) {
+            if (element !== i18n.getLocale()) {%>
+            <li id="<%=element%>"><%=element%></li>
+        <%}})%>
     </ul>
 
     <nav class="light-blue lighten-1" role="navigation">
         <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Logo</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="/blog">blog</a></li>
-                <li><a href="/about">about</a></li>
-                <li><a href="/projects">projects</a></li>
-                <li><a href="/contact">contact</a></li>
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= i18n.getLocale() %><i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="/blog"><%=i18n.__('blog')%></a></li>
+                <li><a href="/about"><%=i18n.__('about')%></a></li>
+                <li><a href="/projects"><%=i18n.__('projects')%></a></li>
+                <li><a href="/contact"><%=i18n.__('contact')%></a></li>
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%=i18n.getLocale()%><i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
 
             <ul id="nav-mobile" class="side-nav">
-                <li><a href="/blog">blog</a></li>
-                <li><a href="/about">about</a></li>
-                <li><a href="/projects">projects</a></li>
-                <li><a href="/contact">contact</a></li>
+                <li><a href="/blog"><%=i18n.__('blog')%></a></li>
+                <li><a href="/about"><%=i18n.__('about')%></a></li>
+                <li><a href="/projects"><%=i18n.__('projects')%></a></li>
+                <li><a href="/contact"><%=i18n.__('contact')%></a></li>
+<!--
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%=i18n.getLocale()%><i class="material-icons right">arrow_drop_down</i></a></li>
+-->
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>

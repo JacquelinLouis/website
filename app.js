@@ -7,8 +7,10 @@ var express = require('express');
 var app = express();
 // internationalization
 var i18n = require('i18n');
+const locales = ['en', 'fr'];
 i18n.configure({
-    locales:['en', 'fr'],
+    locale: 'en',
+    locales: locales,
     directory: __dirname + '/locales'
 });
 // cookies
@@ -58,44 +60,55 @@ function readInDB() {
 }
  */
 
-app.get('/', function (req, res) {
-    res.status(200);
-    var localeValue = '';
+function languageHandler(req, res) {
+    var clientValue = '';
+    var serverValue = i18n.getLocale();
+    var serverValues = i18n.getLocales();
     // get cookie from client
-    if (typeof req.cookies !== 'undefined' && typeof req.cookies.language !== 'undefined'
-        && (localeValue = req.cookies.language) !== res.getLocale() && i18n.getLocales().indexOf(localeValue) > -1) {
+    if (typeof req.cookies != 'undefined' && typeof req.cookies.language != 'undefined'
+        && (clientValue = req.cookies.language) !== serverValue /*&& locales.length > 0 && locales.indexOf(localeValue) > -1*/) {
+        // TODO: set local check to avoid setting a not defined language value
         // language has change
-        i18n.setLocale(localeValue);
+        i18n.setLocale(clientValue);
     } else {
         // invalid cookie value, reset cookie
         res.cookie('language', i18n.getLocale());
     }
-    console.log(i18n.getLocales());
+}
+
+app.get('/', function (req, res) {
+    res.status(200);
+    languageHandler(req, res);
     res.render('pages/working.ejs', { i18n: i18n });
 });
 
 app.get('/about', function (req, res) {
     res.status(200);
+    languageHandler(req, res);
     res.render('pages/about.ejs', { i18n: i18n });
 });
 
 app.get('/blog', function (req, res) {
     res.status(200);
+    languageHandler(req, res);
     res.render('pages/working.ejs', { i18n: i18n });
 });
 
 app.get('/contact', function (req, res) {
     res.status(200);
+    languageHandler(req, res);
     res.render('pages/working', { i18n: i18n });
 });
 
 app.get('/projects', function (req, res) {
     res.status(200);
+    languageHandler(req, res);
     res.render('pages/working.ejs', { i18n: i18n });
 });
 
 app.use(function(req, res, next) {
     res.status(404);
+    languageHandler(req, res);
     res.render('pages/notFound.ejs', { i18n: i18n });
 });
 
