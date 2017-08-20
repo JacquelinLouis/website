@@ -53,6 +53,9 @@
 	"blog": "blog",
 	"about": "about",
 	"projects": "projects",
-	"contact": "contact"
-
+	"contact": "contact",
+	"New_post": "New post",
+	"New_post_title": "Title",
+	"New_post_text": "Content",
+	"Submit": "Submit"
 }

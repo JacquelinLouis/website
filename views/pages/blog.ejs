@@ -14,7 +14,30 @@
         <main>
             <div class="section no-pad-bot" id="index-banner">
                 <div class="container">
-
+                    <form method="post" action="/blog">
+                        <div><%=i18n.__('New_post')%></div>
+                        <div>
+                            <input id="new_post_title" name="title" type="text" class="validate"></input>
+                            <label for="new_post_title"><%=i18n.__('New_post_title')%></label>
+                        </div>
+                        <div>
+                            <textarea  id="new_post_text" name="content" class="materialize-textarea"></textarea>
+                            <label for="new_post_text"><%=i18n.__('New_post_text')%></label>
+                        </div>
+                        <div>
+                            <button id="new_post_submit_button" class="btn waves-effect waves-light" type="submit" name="action">
+                                <%=i18n.__('Submit')%>
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="divider"></div>
+                    <%listArticles.forEach(function(element) {%>
+                        <div class="card">
+                            <div class="card-title"><%=element.title%></div>
+                            <div class="card_margin"><%=element.content%></div>
+                        </div>
+                    <%})%>
                 </div>
             </div>
         </main>

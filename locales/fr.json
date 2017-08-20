@@ -49,5 +49,9 @@
 	"blog": "blog",
 	"about": "a propos",
 	"projects": "projets",
-	"contact": "contact"
+	"contact": "contact",
+	"New_post": "Nouvel article",
+	"New_post_title": "Titre",
+	"New_post_text": "Texte",
+	"Submit": "Soumettre"
 }

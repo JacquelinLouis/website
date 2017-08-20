@@ -5,6 +5,12 @@
 // express
 var express = require('express');
 var app = express();
+
+// body parsing
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
+
 // internationalization
 var i18n = require('i18n');
 const locales = ['en', 'fr'];
@@ -13,19 +19,23 @@ i18n.configure({
     locales: locales,
     directory: __dirname + '/locales'
 });
+
 // cookies
 var cookieParser = require('cookie-parser');
 
+// database
+var mongoClient = require('mongodb').MongoClient;
+
+// initialize database
+const dbUrl = 'mongodb://localhost:27017/blog';
+const dbName = 'articles';
+
+// app use
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views'));
 app.use(i18n.init);
 app.use(cookieParser());
 
-
-// database
-var mongoClient = require('mongodb').MongoClient;
-var dbUrl = 'http://localhost:27017';
-// initialize database
 /*
 mongoClient.connect(dbUrl, function(err, db) {
     if (err) throw err;
@@ -36,6 +46,7 @@ mongoClient.connect(dbUrl, function(err, db) {
         db.close();
     });
 });
+*/
 
 function insertInDB(myObj) {
     mongoClient.connect(dbUrl, function(err, db) {
@@ -58,7 +69,6 @@ function readInDB() {
         });
     });
 }
- */
 
 function languageHandler(req, res) {
     var clientValue = '';
@@ -91,7 +101,46 @@ app.get('/about', function (req, res) {
 app.get('/blog', function (req, res) {
     res.status(200);
     languageHandler(req, res);
-    res.render('pages/working.ejs', { i18n: i18n });
+    var listArticles = [];
+    mongoClient.connect(dbUrl, function(err, db) {
+        if (err) throw err;
+        db.collection('articles').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            result;
+            res.render('pages/blog.ejs', { i18n: i18n, listArticles: result });
+            // console.log(result);
+            db.close();
+        });
+    });
+    // readInDB();
+});
+
+app.post('/blog', urlencodedParser, function(req, res) {
+    if (!req.body) return res.sendStatus(400);
+    res.status(200);
+    const title = req.body.title;
+    const content = req.body.content;
+    var listArticles = [];
+    if (title && content) {
+        mongoClient.connect(dbUrl, function(err, db) {
+            if (err) throw err;
+            db.collection('articles').insertOne({"title": title, "content": content}, function(err, res) {
+                if (err) throw err;
+                db.close();
+            });
+        });
+        // listArticles = [{title: "Article n°1", content: "Contenu n°1"}, {title: "Article n°2", content: "Contenu n°2"}];
+    }
+    mongoClient.connect(dbUrl, function(err, db) {
+        if (err) throw err;
+        db.collection('articles').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            result;
+            res.render('pages/blog.ejs', { i18n: i18n, listArticles: result });
+            // console.log(result);
+            db.close();
+        });
+    });
 });
 
 app.get('/contact', function (req, res) {
