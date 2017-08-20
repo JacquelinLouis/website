@@ -53,5 +53,8 @@
 	"New_post": "Nouvel article",
 	"New_post_title": "Titre",
 	"New_post_text": "Texte",
-	"Submit": "Soumettre"
+	"Submit": "Soumettre",
+	"Choose_language": "Choisissez le langage de l'article",
+	"Articles": "Les articles",
+	"Files": "Fichiers"
 }

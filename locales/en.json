@@ -57,5 +57,8 @@
 	"New_post": "New post",
 	"New_post_title": "Title",
 	"New_post_text": "Content",
-	"Submit": "Submit"
+	"Submit": "Submit",
+	"Choose_language": "Choose article's language",
+	"Articles": "Articles",
+	"Files": "Files"
 }

@@ -120,6 +120,8 @@ app.post('/blog', urlencodedParser, function(req, res) {
     res.status(200);
     const title = req.body.title;
     const content = req.body.content;
+    const files = req.body.files;
+    const language = req.body.language;
     var listArticles = [];
     if (title && content) {
         mongoClient.connect(dbUrl, function(err, db) {
