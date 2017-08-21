@@ -41,14 +41,14 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <select name="language">
-                                    <option value="" disabled selected></option>
+                                    <option value="" disabled selected><%=i18n.__('Select_language')%></option>
                                     <%i18n.getLocales().forEach(function(element) {%>
                                     <option value="<%=element%>"><%=element%></option>
                                     <%})%>
                                 </select>
                                 <label><%=i18n.__('Choose_language')%></label>
                             </div>
-                            <button id="new_post_submit_button" class="btn waves-effect waves-light col s6" type="submit" name="action">
+                            <button id="article_new_post_submit_button" class="btn waves-effect waves-light col s6" type="submit" name="action">
                                 <%=i18n.__('Submit')%>
                                 <i class="material-icons right">send</i>
                             </button>
@@ -60,6 +60,20 @@
                         <div class="card">
                             <div class="card-title"><%=element.title%></div>
                             <div class="card_margin"><%=element.content%></div>
+                            <div class="card-action right-align">
+                                <form method="post" action="/blog">
+                                    <input type="hidden" name="id" value="<%=element._id%>">
+                                    <input type="hidden" name="title" value="<%=element.title%>">
+                                    <input type="hidden" name="content" value="<%=element.content%>">
+                                    <input type="hidden" name="method" value="put">
+                                    <input type="submit" class="waves-effect waves-light btn" value="<%=i18n.__('edit')%>">
+                                </form>
+                                <form method="post" action="/blog">
+                                    <input type="hidden" name="id" value="<%=element._id%>">
+                                    <input type="hidden" name="method" value="delete">
+                                    <input type="submit" class="waves-effect waves-light btn" value="<%=i18n.__('delete')%>">
+                                </form>
+                            </div>
                         </div>
                     <%})%>
                 </div>

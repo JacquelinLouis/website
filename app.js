@@ -24,7 +24,8 @@ i18n.configure({
 var cookieParser = require('cookie-parser');
 
 // database
-var mongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
+var mongoClient = mongodb.MongoClient;
 
 // initialize database
 const dbUrl = 'mongodb://localhost:27017/blog';
@@ -117,28 +118,65 @@ app.get('/blog', function (req, res) {
 
 app.post('/blog', urlencodedParser, function(req, res) {
     if (!req.body) return res.sendStatus(400);
-    res.status(200);
-    const title = req.body.title;
-    const content = req.body.content;
-    const files = req.body.files;
-    const language = req.body.language;
-    var listArticles = [];
-    if (title && content) {
-        mongoClient.connect(dbUrl, function(err, db) {
-            if (err) throw err;
-            db.collection('articles').insertOne({"title": title, "content": content}, function(err, res) {
+    if (req.body.method) {
+        const method = req.body.method;
+        const id = req.body.id;
+        const title = req.body.title;
+        const content = req.body.content;
+        if (method === "put") {
+            mongoClient.connect(dbUrl, function (err, db) {
                 if (err) throw err;
-                db.close();
+                db.collection('articles').updateOne({
+                    "_id": new mongodb.ObjectID(id),
+                    "title": title,
+                    "content": content,
+                    // "language": language,
+                    // "files": files
+                }, function (err, res) {
+                    if (err) throw err;
+                    db.close();
+                });
             });
-        });
-        // listArticles = [{title: "Article n°1", content: "Contenu n°1"}, {title: "Article n°2", content: "Contenu n°2"}];
+        } else if (method === "delete") {
+            mongoClient.connect(dbUrl, function (err, db) {
+                if (err) throw err;
+                db.collection('articles').removeOne({
+                    "_id": new mongodb.ObjectID(id),
+                    // "language": language,
+                    // "files": files
+                }, function (err, res) {
+                    if (err) throw err;
+                    db.close();
+                });
+            });
+        }
+    } else {
+        const title = req.body.title;
+        const content = req.body.content;
+        const files = req.body.files;
+        const language = req.body.language;
+        var listArticles = [];
+        if (title && content) {
+            mongoClient.connect(dbUrl, function (err, db) {
+                if (err) throw err;
+                db.collection('articles').insertOne({
+                    "title": title,
+                    "content": content,
+                    "language": language,
+                    "files": files
+                }, function (err, res) {
+                    if (err) throw err;
+                    db.close();
+                });
+            });
+        }
     }
-    mongoClient.connect(dbUrl, function(err, db) {
+    mongoClient.connect(dbUrl, function (err, db) {
         if (err) throw err;
-        db.collection('articles').find({}).toArray(function(err, result) {
+        db.collection('articles').find({}).toArray(function (err, result) {
             if (err) throw err;
-            result;
-            res.render('pages/blog.ejs', { i18n: i18n, listArticles: result });
+            res.status(200);
+            res.render('pages/blog.ejs', {i18n: i18n, listArticles: result});
             // console.log(result);
             db.close();
         });
@@ -152,6 +190,12 @@ app.get('/contact', function (req, res) {
 });
 
 app.get('/projects', function (req, res) {
+    res.status(200);
+    languageHandler(req, res);
+    res.render('pages/working.ejs', { i18n: i18n });
+});
+
+app.get('/login_or_signup', function (req, res) {
     res.status(200);
     languageHandler(req, res);
     res.render('pages/working.ejs', { i18n: i18n });

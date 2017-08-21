@@ -9,7 +9,7 @@ document.getElementById('dropdown1').addEventListener('click', function(e) {
     }
 });
 
-document.getElementById('new_post_file_clear_button').addEventListener('click', function(e) {
+document.getElementById('article_new_post_file_clear_button').addEventListener('click', function(e) {
     const fileField = document.getElementById('new_post_file_field');
     fileField.value="";
     const fileButton = document.getElementById('new_post_file_button');
