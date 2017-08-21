@@ -24,26 +24,30 @@
                             <textarea id="new_post_text" name="content" class="materialize-textarea"></textarea>
                             <label for="new_post_text"><%=i18n.__('New_post_text')%></label>
                         </div>
-                        <div class="file-field input-field">
-                            <div class="btn">
-                                <span><%=i18n.__('Files')%></span>
-                                <input name="files" type="file" multiple>
+                        <div class="row">
+                            <div class="file-field input-field col s10">
+                                <div class="btn">
+                                    <span><%=i18n.__('Files')%></span>
+                                    <input id="new_post_file_button" name="files" type="file" multiple></input>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input id="new_post_file_field" class="file-path validate" type="text" placeholder="Upload one or more files"></input>
+                                </div>
                             </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                            <div>
+                                <a id="new_post_file_clear_button" class="waves-effect waves-teal btn-flat"><%=i18n.__('Clear')%></a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
                                 <select name="language">
-                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="" disabled selected></option>
                                     <%i18n.getLocales().forEach(function(element) {%>
                                     <option value="<%=element%>"><%=element%></option>
                                     <%})%>
                                 </select>
                                 <label><%=i18n.__('Choose_language')%></label>
                             </div>
-                            <p/>
                             <button id="new_post_submit_button" class="btn waves-effect waves-light col s6" type="submit" name="action">
                                 <%=i18n.__('Submit')%>
                                 <i class="material-icons right">send</i>
