@@ -90,55 +90,13 @@ Check out the [CONTRIBUTING document](CONTRIBUTING.md) in the root of the reposi
 Code copyright 2017 Materialize. Code released under the MIT license.
 =======
 # website
+Install mongodb
+
+From the official documentation :
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
 # server
 Install docker
 
 From the official documentation :
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
-
-Run theses commands to install docker on your server:
- - first, remove docker old versions
-```bash
-sudo apt-get remove docker docker-engine docker.io
-```
- - install the linux-image-extra-* packages
-```bash
-sudo apt-get update
-
-sudo apt-get install \
-    linux-image-extra-$(uname -r) \
-    linux-image-extra-virtual
-```
- - set up the repository
-```bash
-sudo apt-get update
-
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-sudo apt-key fingerprint 0EBFCD88
-```
-Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
-
- - Use the following command to set up the stable repository (amd64 architecture)
-```bash
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-```
-Install docker :
-```bash
-sudo apt-get update
-
-sudo apt-get install docker-ce
-```
-Check the installation is correct :
-```bash
-sudo docker run hello-world
-```

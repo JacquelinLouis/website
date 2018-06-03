@@ -2,6 +2,8 @@
  * Created by Louis on 29/07/2017.
  */
 
+const port = 8080;
+
 // express
 var express = require('express');
 var app = express();
@@ -207,4 +209,5 @@ app.use(function(req, res, next) {
     res.render('pages/notFound.ejs', { i18n: i18n });
 });
 
-app.listen(8080);
+app.listen(port);
+console.log("Running on port " + port)

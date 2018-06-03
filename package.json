@@ -8,5 +8,8 @@
     "express": "^4.15.3",
     "i18n": "^0.8.3",
     "mongodb": "^2.2.31"
+  },
+  "scripts": {
+    "start": "nodejs app.js"
   }
 }
